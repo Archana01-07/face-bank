@@ -1,57 +1,73 @@
-# Welcome to your Lovable project
+Smart Banking System with Facial Recognition
+Overview
 
-## Project info
+The Smart Banking System is an AI-driven customer management solution designed to revolutionize the in-branch banking experience.
+Using webcam-based facial recognition, the system identifies customers the moment they enter the bank and automatically fetches their history, behavior, and service requirements — enabling staff to deliver personalized, efficient, and emotion-aware customer service.
 
-**URL**: https://lovable.dev/projects/042ed961-5b24-486b-b349-629524d7ed9c
+Project Goal
 
-## How can I edit this code?
+To build an intelligent, customer-aware banking system that:
 
-There are several ways of editing your application.
+Recognizes customers instantly via face recognition.
 
-**Use Lovable**
+Displays their banking history, emotional profile, and service needs.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/042ed961-5b24-486b-b349-629524d7ed9c) and start prompting.
+Allows staff to prioritize and assign counters based on customer category and situation.
 
-Changes made via Lovable will be committed automatically to this repo.
+Improves service quality, customer satisfaction, and operational efficiency.
 
-**Use your preferred IDE**
+Core Features
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+🏠 Home Page – Displays project overview and navigation to main modules.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+📸 Webcam Entry Page – Captures live video input, detects faces, and identifies known customers from the database.
 
-Follow these steps:
+👤 Customer Recognition System
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Identifies customer from a dummy database (10 entries).
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Categorizes customers as HNW, VIP, Elderly, or Regular.
 
-# Step 3: Install the necessary dependencies.
-npm i
+Detects predefined behavior/emotion (e.g., Angry, Anxious, Happy, Impatient).
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+📜 Customer History & Behavior Analysis
 
-**Edit a file directly in GitHub**
+Shows customer’s previous visit records, including purpose, outcome, and staff notes.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Predicts current visit purpose based on last recorded issue.
 
-**Use GitHub Codespaces**
+Updates current visit automatically after service completion.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+🏦 Smart Counter Allocation
 
-## What technologies are used for this project?
+Dynamically assigns customers to appropriate service counters:
 
+Counter	Type	Description
+Counter 1	HNW Clients	High-priority handling
+Counter 2	VIP Clients	Corporate / VIP desk
+Counter 3	Elderly	Assistance and guidance
+Counter 4	Irate / Anxious	Complaint resolution zone
+Counter 5	Regular	Standard banking operations
+
+🗄️ Dummy Database
+
+Includes 3+ sample customer profiles with category, emotion, last visit, and current visit fields.
+
+Automatically updates visit_history and current_visit upon new entry.
+
+🧠 Example Behavior Records
+
+Angry – Previous transaction failed, needs apology and reassurance.
+
+Anxious – Concerned about pending pension or investment updates.
+
+Impatient – Waiting long for card delivery or account approval.
+
+Confused – Struggles with digital banking tasks.
+
+Happy – Received good service, positive mood.
+
+⚙️ Tech Stack
 This project is built with:
 
 - Vite
@@ -59,15 +75,3 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/042ed961-5b24-486b-b349-629524d7ed9c) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
