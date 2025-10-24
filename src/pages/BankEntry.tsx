@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { loadModels, detectFaceAndGetDescriptor, compareFaces } from '@/lib/faceApi';
 import { supabase } from '@/integrations/supabase/client';
-import { Camera, UserPlus, Scan } from 'lucide-react';
+import { Camera, UserPlus, Scan, LayoutDashboard } from 'lucide-react';
 
 const BankEntry = () => {
   const navigate = useNavigate();
@@ -260,7 +260,7 @@ const BankEntry = () => {
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Button
               onClick={recognizeCustomer}
               disabled={!isStreaming || !modelsReady || isScanning}
@@ -279,6 +279,16 @@ const BankEntry = () => {
             >
               <UserPlus className="w-6 h-6 mr-3" />
               New Registration
+            </Button>
+
+            <Button
+              onClick={() => navigate('/counter-dashboard')}
+              variant="outline"
+              size="lg"
+              className="h-16 text-lg"
+            >
+              <LayoutDashboard className="w-6 h-6 mr-3" />
+              Counter Management
             </Button>
           </div>
 
