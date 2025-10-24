@@ -38,12 +38,10 @@ serve(async (req) => {
       .map(b => `${b.behavior_type} - ${b.context || 'No context'}`)
       .join('\n');
 
-    const systemPrompt = `You are an expert banking customer service advisor. Analyze customer history and provide actionable insights for staff.
+    const systemPrompt = `You are an expert banking customer service advisor. Analyze customer history and provide a critical insight for staff.
 
-Your response must be structured JSON with these fields:
-- expectedOutcome: A positive, specific outcome for the current visit (1-2 sentences)
-- actionableSteps: Array of 3-5 specific actions staff should take (each 1 sentence)
-- priorityNote: One critical insight about this customer (1 sentence)`;
+Your response must be structured JSON with this field:
+- priorityNote: One critical insight about this customer that staff should be aware of (1-2 sentences)`;
 
     const userPrompt = `Customer Category: ${customerData.category}
 
@@ -55,10 +53,7 @@ Notes: ${customerData.lastVisit.staff_notes || 'None'}` : 'No previous visits'}
 Recent Behavior History:
 ${behaviorSummary || 'No behavior records'}
 
-Based on this history, provide:
-1. A positive expected outcome for today's visit that addresses any past issues
-2. Specific actions staff should take to prevent negative behaviors and ensure satisfaction
-3. A priority note highlighting the most important thing to remember`;
+Based on this history, provide a priority note highlighting the most important thing staff should remember about this customer.`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -77,25 +72,16 @@ Based on this history, provide:
             type: "function",
             function: {
               name: "provide_customer_insights",
-              description: "Generate positive expected outcome and actionable steps for staff",
+              description: "Generate priority note for staff",
               parameters: {
                 type: "object",
                 properties: {
-                  expectedOutcome: { 
-                    type: "string",
-                    description: "A positive, specific outcome for current visit"
-                  },
-                  actionableSteps: {
-                    type: "array",
-                    items: { type: "string" },
-                    description: "3-5 specific actions staff should take"
-                  },
                   priorityNote: {
                     type: "string",
                     description: "Most critical insight about this customer"
                   }
                 },
-                required: ["expectedOutcome", "actionableSteps", "priorityNote"],
+                required: ["priorityNote"],
                 additionalProperties: false
               }
             }

@@ -55,8 +55,6 @@ interface QueueEntry {
 }
 
 interface AIInsights {
-  expectedOutcome: string;
-  actionableSteps: string[];
   priorityNote: string;
 }
 
@@ -191,14 +189,6 @@ const StaffDashboard = () => {
       
       if (data?.insights) {
         setAiInsights(data.insights);
-        
-        // Update queue entry with AI-generated expected outcome
-        if (queueEntry && !queueEntry.expected_outcome) {
-          await supabase
-            .from('counter_queue')
-            .update({ expected_outcome: data.insights.expectedOutcome })
-            .eq('id', queueEntry.id);
-        }
       }
     } catch (error) {
       console.error('Error loading AI insights:', error);
@@ -718,38 +708,11 @@ const StaffDashboard = () => {
                   AI-Powered Recommendations
                 </h2>
                 
-                <div className="space-y-4">
-                  <div className="p-4 bg-white dark:bg-background rounded-lg border-2 border-green-500">
-                    <p className="text-sm font-bold text-green-700 dark:text-green-300 mb-2">
-                      🎯 Positive Expected Outcome
-                    </p>
-                    <p className="font-semibold text-base">{aiInsights.expectedOutcome}</p>
-                  </div>
-
-                  <div className="p-4 bg-white dark:bg-background rounded-lg border border-green-300">
-                    <p className="text-sm font-bold text-green-700 dark:text-green-300 mb-2">
-                      ⚠️ Priority Note
-                    </p>
-                    <p className="text-sm font-semibold text-orange-600 dark:text-orange-400">
-                      {aiInsights.priorityNote}
-                    </p>
-                  </div>
-
-                  <div className="p-4 bg-white dark:bg-background rounded-lg border border-green-300">
-                    <p className="text-sm font-bold text-green-700 dark:text-green-300 mb-3">
-                      ✅ Actionable Steps
-                    </p>
-                    <ul className="space-y-2">
-                      {aiInsights.actionableSteps.map((step, idx) => (
-                        <li key={idx} className="flex items-start">
-                          <span className="inline-block w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-xs font-bold flex items-center justify-center mr-2 flex-shrink-0 mt-0.5">
-                            {idx + 1}
-                          </span>
-                          <span className="text-sm">{step}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                <div className="p-4 bg-white dark:bg-background rounded-lg border-2 border-green-500">
+                  <p className="text-sm font-bold text-green-700 dark:text-green-300 mb-2">
+                    ⚠️ Priority Note
+                  </p>
+                  <p className="font-semibold text-base">{aiInsights.priorityNote}</p>
                 </div>
               </Card>
             )}
@@ -784,13 +747,9 @@ const StaffDashboard = () => {
                     <p className="text-sm text-muted-foreground">Priority</p>
                     <p className="text-2xl font-bold">{queueEntry.priority}</p>
                   </div>
-                  <div className="col-span-2 p-3 bg-background rounded-lg border-2 border-primary">
+                  <div className="col-span-4 p-3 bg-background rounded-lg border-2 border-primary">
                     <p className="text-sm font-bold text-primary mb-1">Purpose of Visit</p>
                     <p className="font-semibold text-lg">{queueEntry.purpose || 'Not specified'}</p>
-                  </div>
-                  <div className="col-span-2 p-3 bg-background rounded-lg border-2 border-primary">
-                    <p className="text-sm font-bold text-primary mb-1">Expected Outcome</p>
-                    <p className="font-semibold text-lg">{aiInsights?.expectedOutcome || queueEntry.expected_outcome || 'Not specified'}</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
